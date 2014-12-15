@@ -1,0 +1,55 @@
+sdfsdclass MinStack {
+    ArrayList<Integer> St = new ArrayList<Integer>();
+
+    void push(int x) {
+        if(St.size()==0){
+            St.add(1);         // the first element as the placeholder for the number of elements have the minimum value of the stack
+            St.add(x);         // the second element as the placeholder for the minimum value of the stack
+//            St.add(x);
+        }else if(x < St.get(1)){
+            St.set(1, x);       // update the minimum value
+            St.set(0, 1);       // update the number of minimum value
+//            St.add(x);
+        }else if(x == St.get(1)){
+            St.set(0, St.get(0)+1);      // update the number of minimum value
+//            St.add(x);
+        }
+        St.add(x);
+    }
+
+    void pop() {
+        if(St.size()>2){
+            if(this.top() == St.get(1)){
+                if(St.get(0)>1){               // more than one minimum values in the stack
+                    St.set(0, St.get(0)-1);
+                    St.remove(St.size()-1);
+                }else{                         // this is the only minimum value in the tack, then need to update the minimum value
+                    St.remove(St.size()-1);
+                    St.set(1, Integer.MAX_VALUE);
+                    St.set(0, 1);
+                    for(int i=2; i<St.size(); i++){ // loop the find the minimum
+                        if(St.get(1) > St.get(i)) {
+                            St.set(1, St.get(i));
+                        }else if(St.get(1) == St.get(i)){
+                            St.set(0, St.get(0)+1);
+                        }
+                        
+                    }
+                
+                }
+            }else{
+                  St.remove(St.size()-1);    
+            }
+        }else{
+            System.out.println("stack is empty");
+        }
+    }
+
+    int top() {
+        return St.get(St.size()-1);
+    }
+
+    int getMin() {
+        return St.get(1);
+    }
+};
