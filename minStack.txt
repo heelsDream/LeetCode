@@ -1,4 +1,4 @@
-sdfsdclass MinStack {
+class MinStack {
     ArrayList<Integer> St = new ArrayList<Integer>();
 
     void push(int x) {
